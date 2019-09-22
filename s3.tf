@@ -1,3 +1,4 @@
+// Bucket policy to allow public access
 data "aws_iam_policy_document" "static_hosting_via_bucket_policy" {
 
   statement {
@@ -21,6 +22,7 @@ data "aws_iam_policy_document" "static_hosting_via_bucket_policy" {
 }
 
 
+// Bucket creation
 resource "aws_s3_bucket" "web_content" {
 
   bucket = var.domain

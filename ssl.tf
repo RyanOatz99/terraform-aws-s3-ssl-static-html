@@ -1,8 +1,10 @@
+// Capture the certificate
 data "aws_acm_certificate" "tls_cert" {
   domain = var.certificate_domain
   most_recent = true
 }
 
+// Create CF distribution with the captured certification
 resource "aws_cloudfront_distribution" "domain_distribution" {
   origin {
     custom_origin_config {
@@ -12,6 +14,7 @@ resource "aws_cloudfront_distribution" "domain_distribution" {
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
     }
 
+    // Endpoint
     domain_name = aws_s3_bucket.web_content.website_endpoint
     origin_id   = var.domain
   }
@@ -37,6 +40,7 @@ resource "aws_cloudfront_distribution" "domain_distribution" {
     }
   }
 
+  // Alias
   aliases = ["${var.domain}"]
 
   restrictions {
@@ -45,6 +49,7 @@ resource "aws_cloudfront_distribution" "domain_distribution" {
     }
   }
 
+  // Certification goes here
   viewer_certificate {
     acm_certificate_arn = "${data.aws_acm_certificate.tls_cert.arn}"
     ssl_support_method  = "sni-only"
