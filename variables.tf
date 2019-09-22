@@ -1,11 +1,11 @@
 variable "domain" {
-  description = "ex. mysub.domain.com"
+  description = "The full name of the domain, ex. mydomain.example.com"
 }
 
 variable "fqdd" {
-  description = "ex. domain.com"
+  description = "The FQDD for the domain (used with hosted zone), ex. domain.com"
 }
 
 variable "certificate_domain" {
-  description = ""
+  description = "The domain name the certificate war created under, ex. *.example.com"
 }
